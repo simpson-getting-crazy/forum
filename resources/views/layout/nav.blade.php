@@ -21,27 +21,6 @@
                 </ul>
             </nav>
         </div>
-        <div class="nav__select">
-            <div class="btn-select" data-dropdown-btn="tags">Tags</div>
-            <div class="dropdown dropdown--design-01" data-dropdown-list="tags">
-                <div class="tags">
-                    <a href="#" class="bg-4f80b0">gaming</a>
-                    <a href="#" class="bg-424ee8">nature</a>
-                    <a href="#" class="bg-36b7d7">entertainment</a>
-                    <a href="#" class="bg-ef429e">selfie</a>
-                    <a href="#" class="bg-7cc576">camera</a>
-                    <a href="#" class="bg-3a3a17">username</a>
-                    <a href="#" class="bg-6f7e9c">funny</a>
-                    <a href="#" class="bg-f26522">photography</a>
-                    <a href="#" class="bg-a3d39c">climbing</a>
-                    <a href="#" class="bg-92278f">adventure</a>
-                    <a href="#" class="bg-8781bd">dreams</a>
-                    <a href="#" class="bg-f1ab32">life</a>
-                    <a href="#" class="bg-3b96ca">reason</a>
-                    <a href="#" class="bg-348aa7">social</a>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="nav__menu js-dropdown">
         <div class="nav__select">
