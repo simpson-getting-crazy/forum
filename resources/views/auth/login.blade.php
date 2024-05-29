@@ -8,7 +8,7 @@
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Responsive HTML5 Template">
     <meta name="author" content="author.com">
-    <title>Responsive HTML5 Template</title>
+    <title>DevSpaces - Login</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('bootstrap-forum/fonts/icons/main/mainfont/style.css') }}">
@@ -40,27 +40,33 @@
                 <div class="signup__container">
                     <div class="signup__logo">
                         <a href="#"><img src="{{ asset('bootstrap-forum/fonts/icons/main/Logo_Forum.svg') }}"
-                                alt="logo">Unity</a>
+                                alt="logo">DevSpaces</a>
                     </div>
 
                     <div class="signup__head">
-                        <h3>Login to Unity Account</h3>
+                        <h3>Login to DevSpaces Account</h3>
                         <p>By singin you can start posting, replaying to topics, earn badges, favorite, vote topics
                             and many more.</p>
                     </div>
-                    <div class="signup__form">
-                        <div class="signup__section">
-                            <label class="signup__label" for="email">Email Address</label>
-                            <input type="text" class="form-control" id="email" value="Jane326@gmail.com">
-                        </div>
-                        <div class="signup__section">
-                            <label class="signup__label" for="password">Password</label>
-                            <div class="message-input">
-                                <input type="password" class="form-control" id="password" value="*********">
+                    <form action="{{ route('forum_auth.login.store') }}" method="POST">
+                        @csrf
+                        <div class="signup__form">
+
+                            <x-error-box :resources="'User Login'" />
+
+                            <div class="signup__section">
+                                <label class="signup__label" for="email">Email Address</label>
+                                <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}">
                             </div>
+                            <div class="signup__section">
+                                <label class="signup__label" for="password">Password</label>
+                                <div class="message-input">
+                                    <input type="password" class="form-control" id="password" name="password">
+                                </div>
+                            </div>
+                            <button type="submit" class="signup__btn-create btn btn--type-02">Login</button>
                         </div>
-                        <a href="#" class="signup__btn-create btn btn--type-02">Login</a>
-                    </div>
+                    </form>
                 </div>
             </div>
         </main>
@@ -90,6 +96,7 @@
     <script src="{{ asset('bootstrap-forum/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('bootstrap-forum/vendor/velocity/velocity.min.js') }}"></script>
     <script src="{{ asset('bootstrap-forum/js/app.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>
 

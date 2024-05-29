@@ -1,5 +1,7 @@
 @extends('layout.base')
 
+@section('title', 'Home')
+
 @section('content')
     <div class="posts">
         <div class="posts__head">
