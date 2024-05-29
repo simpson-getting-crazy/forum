@@ -16,6 +16,6 @@ class GenerateAvatar
             ->save($fullPath, $quality);
 
 
-        return url($fullPath);
+        return url("forum/avatar/$name.png");
     }
 }

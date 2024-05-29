@@ -7,7 +7,7 @@
                 </h1>
                 <a href="/" class="text-dark">
                     <div class="header__logo-btn">
-                        DevSpace
+                        DevSpaces
                     </div>
                 </a>
             </div>

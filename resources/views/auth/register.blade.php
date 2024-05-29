@@ -39,7 +39,7 @@
             <div class="container">
                 <div class="signup__container">
                     <div class="signup__logo">
-                        <a href="#"><img src="{{ asset('bootstrap-forum/fonts/icons/main/Logo_Forum.svg') }}"
+                        <a href="/"><img src="{{ asset('bootstrap-forum/fonts/icons/main/Logo_Forum.svg') }}"
                                 alt="logo">DevSpaces</a>
                     </div>
 

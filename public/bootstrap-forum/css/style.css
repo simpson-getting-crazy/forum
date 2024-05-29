@@ -400,6 +400,11 @@ select {
   }
 }
 
+.paging-active {
+    background-color: #FF7D29 !important;
+    color: #fff8f8 !important;
+}
+
 .btn-base {
     height: 38px;
     padding: 8px 15px;

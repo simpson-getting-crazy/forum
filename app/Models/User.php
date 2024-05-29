@@ -8,7 +8,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements FilamentUser, HasName
@@ -37,5 +39,35 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function getFilamentName(): string
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function threads(): HasMany
+    {
+        return $this->hasMany(Thread::class);
+    }
+
+    public function getRelatedUserLastPost(): string
+    {
+        $record = $this->threads()->latest()->first();
+
+        return is_null($record)
+            ? 'Not Posted Yet!'
+            : 'Last Post '.\Carbon\Carbon::parse($record->created_at)->diffForHumans();
+
+    }
+
+    public function getUserJoinedAt(): string
+    {
+        return 'Joined at '.\Carbon\Carbon::parse($this->created_at)->format('M d, y');
+    }
+
+    public function getRelatedUserThreads(): Collection
+    {
+        return $this->threads()->whereNull('parent_id')->get();
+    }
+
+    public function getRelatedUserPosts(): Collection
+    {
+        return $this->threads()->get();
     }
 }

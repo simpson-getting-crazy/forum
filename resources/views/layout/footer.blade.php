@@ -3,7 +3,8 @@
         <div class="container">
             <div class="footer__logo">
                 <div>
-                    <img src="{{ asset('bootstrap-forum/fonts/icons/main/Logo_Forum.svg') }}" alt="logo">Unity
+                    <img src="{{ asset('bootstrap-forum/fonts/icons/main/Logo_Forum.svg') }}" alt="logo">
+                    DevSpaces
                 </div>
             </div>
             <div class="footer__nav">
@@ -44,7 +45,7 @@
                 </div>
                 <div class="footer__bline">
                     <ul class="footer__menu">
-                        <li class="footer__copyright"><span>&copy; 2017 azyrusthemes.com</span></li>
+                        <li class="footer__copyright"><span>&copy; 2024 SimpsonGettingCrazy</span></li>
                         <li><a href="#">Teams</a></li>
                         <li><a href="#">Privacy</a></li>
                         <li><a href="#">Send Feedback</a></li>

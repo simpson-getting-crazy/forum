@@ -25,6 +25,7 @@ return new class extends Migration
                 ->onDelete('cascade');
 
             $table->foreignId('parent_id')
+                ->nullable()
                 ->references('id')
                 ->on('threads')
                 ->onDelete('cascade');
