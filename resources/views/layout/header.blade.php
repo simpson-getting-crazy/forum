@@ -33,7 +33,7 @@
                         <div>
                             <div class="dropdown__icons">
                                 <a href="#"><i class="icon-Preferences"></i></a>
-                                <a href="#"><i class="icon-User"></i></a>
+                                <a href="{{ route('forum.profile.index') }}"><i class="icon-User"></i></a>
                                 <a href="#"><i class="icon-Pencil"></i></a>
                                 <a href="{{ route('forum_auth.logout.store') }}"><i class="icon-Logout"></i></a>
                             </div>

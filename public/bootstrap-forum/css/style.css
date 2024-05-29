@@ -446,6 +446,21 @@ select {
   margin-left: 4px;
   margin-right: 4px;
 }
+
+.btn--type-01 {
+    background-color: #64f97d;
+  }
+  .btn--type-01,
+  .btn--type-01:visited,
+  .btn--type-01:active,
+  .btn--type-01:link {
+    color: #ffffff;
+  }
+  .btn--type-01 i {
+    margin-right: 15px;
+    color: #ffffff;
+  }
+
 .btn--type-02 {
   background-color: #f9bc64;
 }
@@ -459,6 +474,21 @@ select {
   margin-right: 15px;
   color: #ffffff;
 }
+
+.btn--type-03 {
+    background-color: #f96464;
+}
+.btn--type-03,
+.btn--type-03:visited,
+.btn--type-03:active,
+.btn--type-03:link {
+    color: #ffffff;
+}
+.btn--type-03 i {
+margin-right: 15px;
+color: #ffffff;
+}
+
 .btn-select {
   position: relative;
   height: 38px;
@@ -472,6 +502,21 @@ select {
   display: -webkit-flex;
   display: flex;
 }
+
+.btn-outline-warning {
+    color: #e2af17;
+    border-color: #e2af17;
+}
+
+.btn-outline-warning:hover {
+    color: #ffffff!important;
+}
+
+.btn-warning-active {
+    background-color: #e2af17;
+    color: #ffffff!important;
+}
+
 @media only screen and (min-width: 1040px) {
   .btn-select {
     padding: 0 40px 0 15px;
@@ -2502,6 +2547,7 @@ select {
   padding-top: 34px;
   border-top: solid 1px #dadde1;
 }
+
 .signup__form {
   position: relative;
   max-width: 772px;
@@ -2510,16 +2556,36 @@ select {
   border: solid 1px #f3f4f5;
   border-top: solid 2px #f9bc64;
 }
+
+.base-card {
+    position: relative;
+    max-width: 772px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border: solid 1px #f3f4f5;
+    border-top: solid 2px #f9bc64;
+}
+
 @media only screen and (min-width: 1040px) {
   .signup__form {
     padding: 30px 44px 46px;
   }
+
+  .base-card {
+    padding: 30px 44px 46px;
+  }
+
 }
 @media only screen and (max-width: 1039px) {
   .signup__form {
     padding: 30px 20px 46px;
   }
+
+  .base-card {
+    padding: 30px 20px 46px;
+  }
 }
+
 .signup__form input.form-control {
   height: 34px;
   padding: 0;
@@ -2531,6 +2597,7 @@ select {
   -moz-box-shadow: none;
   box-shadow: none;
 }
+
 .signup__section {
   padding-bottom: 15px;
   margin-bottom: 32px;
@@ -2563,17 +2630,28 @@ select {
 .signup__box .custom-checkbox {
   border-radius: 3px;
 }
+
 .signup__btn-create {
   width: 100%;
 }
+
 @media only screen and (min-width: 1040px) {
   .signup__btn-create {
-    height: 52px;
+    height: 48px;
+    font-size: 17px;
+  }
+
+  .primary-btn {
+    height: 40px;
     font-size: 17px;
   }
 }
 @media only screen and (max-width: 1039px) {
   .signup__btn-create {
+    height: 38px;
+  }
+
+  .primary-btn {
     height: 38px;
   }
 }

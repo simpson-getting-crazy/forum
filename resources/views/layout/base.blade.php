@@ -1,3 +1,5 @@
+@props(['navigation' => true])
+
 <!doctype html>
 <html lang="en-US">
 
@@ -25,9 +27,11 @@
     <!-- MAIN -->
     <main>
         <div class="container">
-            <section id="navigation">
-                @include('layout.nav')
-            </section>
+            @if($navigation)
+                <section id="navigation">
+                    @include('layout.nav')
+                </section>
+            @endif
             <section id="content">
                 @yield('content')
             </section>
