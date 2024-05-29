@@ -23,9 +23,9 @@
             <div class="btn-select" data-dropdown-btn="menu">Latest</div>
             <div class="dropdown dropdown--design-01" data-dropdown-list="menu">
                 <ul class="dropdown__catalog">
-                    <li class="active"><a href="/?tabFilter=latest">Latest</a></li>
-                    <li><a href="/?tabFilter=mostViewed">Most Viewed</a></li>
-                    <li><a href="/?tabFilter=mostActive">Most Active Threads</a></li>
+                    <li class="{{ request()->get('tabFilter') == 'latest' ? 'active' : '' }}"><a href="/?tabFilter=latest">Latest</a></li>
+                    <li class="{{ request()->get('tabFilter') == 'mostViewed' ? 'active' : '' }}"><a href="/?tabFilter=mostViewed">Most Viewed</a></li>
+                    <li class="{{ request()->get('tabFilter') == 'mostActive' ? 'active' : '' }}"><a href="/?tabFilter=mostActive">Most Active Threads</a></li>
                 </ul>
             </div>
         </div>

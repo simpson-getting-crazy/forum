@@ -13,7 +13,7 @@ class FilterByLatest
     {
         return $next($builder)
             ->when($this->request->get('tabFilter') == 'latest',
-                fn ($query) => $query->orderBy('created_at', 'desc')
+                fn ($query) => $query->orderBy('created_at', 'desc')->orderBy('last_activity', 'desc')
         );
     }
 }
