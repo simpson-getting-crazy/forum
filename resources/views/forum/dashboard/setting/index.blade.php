@@ -11,7 +11,7 @@
                     <div class="col-12">
                         <form action="{{ route('forum.setting.update') }}" method="POST">
                             @csrf
-                            <div class="base-card">
+                            <div class="base-card mb-5">
                                 <x-error-box :resources="'Setting'" />
                                 <div class="row mx-1">
                                     <div class="col-12">
