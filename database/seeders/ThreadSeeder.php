@@ -41,18 +41,6 @@ class ThreadSeeder extends Seeder
                 'is_remove_by_admin' => false,
                 'last_activity' => now(),
             ]);
-
-            $titleForParent = fake()->sentence(5);
-            $thread->parents()->create([
-                'user_id' => fake()->numberBetween(2, User::count()),
-                'category_id' => fake()->numberBetween(1, Category::count()),
-                'title' => $titleForParent,
-                'slug' => Str::slug($titleForParent),
-                'description' => '<p>'.fake()->sentence(20).'</p>',
-                'visibility' => 'all',
-                'is_remove_by_admin' => false,
-                'last_activity' => now(),
-            ]);
         }
     }
 }
