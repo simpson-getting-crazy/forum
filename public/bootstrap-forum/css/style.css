@@ -2566,6 +2566,10 @@ color: #ffffff;
     border-top: solid 2px #f9bc64;
 }
 
+.ck-editor__editable_inline {
+    min-height: 250px;
+}
+
 @media only screen and (min-width: 1040px) {
   .signup__form {
     padding: 30px 44px 46px;

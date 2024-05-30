@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,6 +16,21 @@ class Thread extends Model
     protected $table = 'threads';
 
     protected $guarded = ['id'];
+
+    protected static function booted(): void
+    {
+        $uniqueCode = Str::lower(Str::random(4));
+
+        static::creating(function ($item) use ($uniqueCode) {
+            $item->slug = empty($item->slug)
+                ? Str::slug($item->title.' '.$uniqueCode)
+                : Str::slug($item->slug.' '.$uniqueCode);
+        });
+
+        static::updating(function ($item) use ($uniqueCode) {
+            $item->slug ??= Str::slug($item->title.' '.$uniqueCode);
+        });
+    }
 
     public function category(): BelongsTo
     {

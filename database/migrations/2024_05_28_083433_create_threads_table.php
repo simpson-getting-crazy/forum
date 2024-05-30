@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('slug');
             $table->longText('description');
             $table->enum('visibility', ['all', 'friends']);
-            $table->boolean('is_remove_by_admin');
+            $table->boolean('is_remove_by_admin')->default(false);
 
             $table->unsignedInteger('upvote')->default(0);
             $table->unsignedInteger('downvote')->default(0);

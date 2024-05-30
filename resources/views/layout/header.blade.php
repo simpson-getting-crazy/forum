@@ -31,6 +31,19 @@
                     </div>
                     <nav class="dropdown dropdown--design-01" data-dropdown-list="user">
                         <div>
+                            <div class="dropdown__icons">
+                                <a href="{{ route('forum.thread.create') }}">
+                                    <i class="icon-Pencil"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="icon-Bookmark"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="icon-Message"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div>
                             <ul class="dropdown__catalog">
                                 <li>
                                     <a href="{{ route('forum.my_thread.index') }}">
@@ -49,10 +62,10 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{{ route('forum.setting.index') }}">
                                         <div class="d-flex align-items-center gap-3">
-                                            <i class="fa fa-pencil"></i>
-                                            Write Thread
+                                            <i class="fa fa-cog"></i>
+                                            My Setting
                                         </div>
                                     </a>
                                 </li>
