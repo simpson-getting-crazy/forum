@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Forum;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\Thread\FilterByCategory;
 use App\Http\Filters\Thread\FilterByLatest;
 use App\Http\Filters\Thread\FilterByMostActive;
 use App\Http\Filters\Thread\FilterByMostViewed;
@@ -21,6 +22,7 @@ class HomeController extends Controller
                 FilterByLatest::class,
                 FilterByMostActive::class,
                 FilterByMostViewed::class,
+                FilterByCategory::class,
             ])
             ->thenReturn()
             ->paginate(5);
