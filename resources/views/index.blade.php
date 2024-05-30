@@ -64,12 +64,12 @@
                                 <div>
                                     <a href="#" class="avatar"><img
                                             src="{{ $parent->user->avatar ?? asset('bootstrap-forum/fonts/icons/avatars/T.svg') }}"
-                                            alt="avatar" data-dropdown-btn="user-t"></a>
+                                            alt="avatar" class="rounded-circle" data-dropdown-btn="user-t"></a>
                                     <div class="posts__users-dropdown dropdown dropdown--user" data-dropdown-list="user-t">
                                         <div class="dropdown__user">
                                             <a href="#" class="dropdown__user-label">
                                                 <img src="{{ $parent->user->avatar ?? asset('bootstrap-forum/fonts/icons/avatars/T.svg') }}"
-                                                    alt="avatar">
+                                                    alt="avatar" class="rounded-circle">
                                             </a>
                                             <div class="dropdown__user-nav">
                                                 <a href="#"><i class="icon-Add_User"></i></a>
@@ -96,12 +96,12 @@
                                 <div>
                                     <a href="#" class="avatar"><img
                                             src="{{ $thread->user->avatar ?? asset('bootstrap-forum/fonts/icons/avatars/T.svg') }}"
-                                            alt="avatar" data-dropdown-btn="user-t"></a>
+                                            alt="avatar" class="rounded-circle" data-dropdown-btn="user-t"></a>
                                     <div class="posts__users-dropdown dropdown dropdown--user" data-dropdown-list="user-t">
                                         <div class="dropdown__user">
                                             <a href="#" class="dropdown__user-label">
                                                 <img src="{{ $thread->user->avatar ?? asset('bootstrap-forum/fonts/icons/avatars/T.svg') }}"
-                                                    alt="avatar">
+                                                    alt="avatar" class="rounded-circle">
                                             </a>
                                             <div class="dropdown__user-nav">
                                                 <a href="#"><i class="icon-Add_User"></i></a>

@@ -2559,7 +2559,7 @@ color: #ffffff;
 
 .base-card {
     position: relative;
-    max-width: 772px;
+    max-width: 100%;
     margin: 0 auto;
     background-color: #ffffff;
     border: solid 1px #f3f4f5;

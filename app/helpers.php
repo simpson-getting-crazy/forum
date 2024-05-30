@@ -28,3 +28,37 @@ function compactDiffForHumans($date)
         return $diffInYears . 'y';
     }
 }
+
+function getAspectRatio($width, $height): array
+{
+    function getDivisorList($px): array
+    {
+        $list = [];
+        $i = 1;
+
+        while($px / $i >= 1) {
+            if ($px % $i === 0) {
+                $div = $px / $i;
+                $list[$div] = $px / $div;
+            }
+            $i++;
+        }
+        return $list;
+    }
+
+    $w = getDivisorList($width);
+    $h = getDivisorList($height);
+
+    $aspect = "";
+    $ratio = 0;
+
+    foreach ($w as $div => $num) {
+        if (isset($h[$div])) {
+            $aspect = $num . ":" . $h[$div];
+            $ratio = $num / $h[$div];
+            break;
+        }
+    }
+
+    return ['aspect' => $aspect, 'ratio' => $ratio];
+}

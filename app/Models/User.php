@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class User extends Authenticatable implements FilamentUser, HasName
 {
@@ -61,9 +62,11 @@ class User extends Authenticatable implements FilamentUser, HasName
         return 'Joined at '.\Carbon\Carbon::parse($this->created_at)->format('M d, y');
     }
 
-    public function getRelatedUserThreads(): Collection
+    public function getRelatedUserThreads(bool $withPagination = false): Collection|LengthAwarePaginator
     {
-        return $this->threads()->whereNull('parent_id')->get();
+        return !$withPagination
+            ? $this->threads()->whereNull('parent_id')->get()
+            : $this->threads()->whereNull('parent_id')->paginate(5);
     }
 
     public function getRelatedUserPosts(): Collection

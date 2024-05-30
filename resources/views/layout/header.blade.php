@@ -26,23 +26,44 @@
             @else
                 <div class="header__user">
                     <div class="header__user-btn" data-dropdown-btn="user">
-                        <img src="{{ auth()->user()->avatar ?? asset('bootstrap-forum/fonts/icons/avatars/A.svg')  }}" alt="avatar">
+                        <img src="{{ auth()->user()->avatar ?? asset('bootstrap-forum/fonts/icons/avatars/A.svg')  }}" alt="avatar" class="rounded-circle">
                         {{ auth()->user()->getFilamentName() }}<i class="icon-Arrow_Below"></i>
                     </div>
                     <nav class="dropdown dropdown--design-01" data-dropdown-list="user">
                         <div>
-                            <div class="dropdown__icons">
-                                <a href="#"><i class="icon-Preferences"></i></a>
-                                <a href="{{ route('forum.profile.index') }}"><i class="icon-User"></i></a>
-                                <a href="#"><i class="icon-Pencil"></i></a>
-                                <a href="{{ route('forum_auth.logout.store') }}"><i class="icon-Logout"></i></a>
-                            </div>
-                        </div>
-                        <div>
                             <ul class="dropdown__catalog">
-                                <li><a href="#">Dashboard</a></li>
-                                <li><a href="#">Write Thread</a></li>
-                                <li><a href="#">Bookmarked</a></li>
+                                <li>
+                                    <a href="{{ route('forum.my_thread.index') }}">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="fa fa-quote-left"></i>
+                                            My Thread
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('forum.profile.index') }}">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="fa fa-user"></i>
+                                            My Profile
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="fa fa-pencil"></i>
+                                            Write Thread
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('forum_auth.logout.store') }}">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="fa fa-sign-out"></i>
+                                            Sign Out
+                                        </div>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </nav>

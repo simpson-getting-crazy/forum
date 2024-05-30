@@ -13,12 +13,12 @@
                             <div class="col-lg-4">
                                 <div class="base-card">
                                     <div class="d-flex flex-column align-items-center text-center">
-                                        <img src="{{ asset('bootstrap-forum/fonts/icons/avatars/A.svg') }}"
-                                            alt="Admin" width="110">
+                                        <img src="{{ $user->avatar ?? asset('bootstrap-forum/fonts/icons/avatars/A.svg') }}"
+                                            alt="Admin" class="rounded-circle" width="110">
                                         <div class="mt-3">
-                                            <h4>Wirandra Alaya R</h4>
-                                            <p class="text-secondary mb-1">Email</p>
-                                            <p class="text-muted font-size-sm">Email Address</p>
+                                            <h4>{{ $user->getFilamentName() }}</h4>
+                                            <p class="text-secondary mb-1">{{ $user->getRelatedUserLastPost() }}</p>
+                                            <p class="text-muted font-size-sm">{{ $user->getUserJoinedAt() }}</p>
 
                                         </div>
                                     </div>
@@ -26,16 +26,17 @@
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                             <div>Threads -
-                                                <span>{{ '30' }}</span>
+                                                <span>{{ $user->getRelatedUserThreads()->count() }}</span>
                                             </div>
                                             <div>Posts -
-                                                <span>{{ '300' }}</span></div>
+                                                <span>{{ $user->getRelatedUserPosts()->count() }}</span></div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-lg-8">
-                                <form action="">
+                                <form action="{{ route('forum.profile.update') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="base-card">
                                         <x-error-box :resources="'User Profile'" />
                                         <div class="row mb-3 mx-1">
