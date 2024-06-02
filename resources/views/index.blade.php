@@ -46,13 +46,13 @@
                     <div class="posts__section-left">
                         <div class="posts__topic">
                             <div class="posts__content">
-                                <a href="#">
+                                <a href="{{ route('forum.detail', $thread->slug) }}">
                                     <h3>{{ Str::title($thread->title) }}</h3>
                                 </a>
                             </div>
                         </div>
                         <div class="posts__category">
-                            <a href="#" class="category">
+                            <a href="{{ route('forum.detail', $thread->slug) }}" class="category">
                                 <i style="background-color: {{ $thread->category->color }}"></i>
                                 {{ Str::title($thread->category->name) }}
                             </a>

@@ -40,7 +40,15 @@ class Thread extends Model
     public function parents(): HasMany
     {
         return $this->hasMany(Thread::class, 'parent_id', 'id')
-            ->whereNotNull('parent_id');
+            ->whereNotNull('parent_id')
+            ->whereNull('other_thread_replies');
+    }
+
+    public function otherThreadReplies(): HasMany
+    {
+        return $this->hasMany(Thread::class, 'other_thread_replies', 'id')
+            ->whereNull('parent_id')
+            ->whereNotNull('other_thread_replies');
     }
 
     public function user(): BelongsTo
@@ -54,5 +62,15 @@ class Thread extends Model
             ->orderBy('last_activity', 'desc')
             ->limit(3)
             ->get();
+    }
+
+    public function mentions(): HasMany
+    {
+        return $this->hasMany(Mention::class);
+    }
+
+    public function votedThreads(): HasMany
+    {
+        return $this->hasMany(VotedThread::class);
     }
 }

@@ -30,8 +30,14 @@ return new class extends Migration
                 ->on('threads')
                 ->onDelete('cascade');
 
-            $table->string('title');
-            $table->string('slug');
+            $table->foreignId('other_thread_replies')
+                ->nullable()
+                ->references('id')
+                ->on('threads')
+                ->onDelete('cascade');
+
+            $table->string('title')->nullable();
+            $table->string('slug')->nullable();
             $table->longText('description');
             $table->enum('visibility', ['all', 'friends']);
             $table->boolean('is_remove_by_admin')->default(false);
@@ -79,6 +85,29 @@ return new class extends Migration
 
             $table->timestamps();
         });
+
+        Schema::create('mentions', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('author')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreignId('mentioned_user')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreignId('thread_id')
+                ->references('id')
+                ->on('threads')
+                ->onDelete('cascade');
+
+            $table->enum('type', ['up', 'down']);
+
+            $table->timestamps();
+        });
     }
 
     /**
@@ -89,5 +118,6 @@ return new class extends Migration
         Schema::dropIfExists('threads');
         Schema::dropIfExists('bookmarked_threads');
         Schema::dropIfExists('voted_threads');
+        Schema::dropIfExists('mentions');
     }
 };

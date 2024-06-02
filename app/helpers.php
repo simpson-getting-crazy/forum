@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Carbon;
 
-function compactDiffForHumans($date)
+function compactDiffForHumans($date): string
 {
     $date = Carbon::parse($date);
     $now = Carbon::now();
@@ -61,4 +61,10 @@ function getAspectRatio($width, $height): array
     }
 
     return ['aspect' => $aspect, 'ratio' => $ratio];
+}
+
+function summernotePlacement($content): string
+{
+
+    return str_replace('&nbsp;', ' ', strip_tags($content));
 }

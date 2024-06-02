@@ -53,6 +53,8 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script type="module" src="{{ asset('plugin/summernote/summernote-at-mention/src/summernote-at-mention.js') }}"></script>
+    <script type="module" src="{{ asset('plugin/summernote/summernote-at-mention/src/selection-preserver.js') }}"></script>
     <script>
         $('.summernotes').each(function() {
             var placeholder = $(this).data('placeholder')
@@ -60,10 +62,12 @@
                 height: 200,
                 placeholder: placeholder,
                 tabsize: 2,
-                lang: 'id-ID'
+                lang: 'en-EN'
             })
         });
     </script>
+
+    @stack('script')
 
 
 </body>

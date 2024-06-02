@@ -11,6 +11,7 @@ use App\Http\Controllers\Forum\Thread\ThreadFormController;
 Route::group(['as' => 'forum.'], function () {
 
     Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('/show/{slug}', [HomeController::class, 'detail'])->name('detail');
 
     Route::group(['prefix' => 'my-thread', 'as' => 'my_thread.'], function () {
         Route::get('/', [MyThreadController::class, 'index'])->name('index');

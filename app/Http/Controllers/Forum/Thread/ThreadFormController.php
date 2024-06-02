@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\Image;
 use App\Http\Controllers\Controller;
 use App\Models\Thread;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,8 +18,9 @@ class ThreadFormController extends Controller
     public function create(): View
     {
         $categories = Category::orderBy('name', 'asc')->get();
+        $users = User::orderBy('first_name', 'asc')->get();
 
-        return view('forum.thread.form', compact('categories'));
+        return view('forum.thread.form', compact('categories', 'users'));
     }
 
     public function store(Request $request): RedirectResponse
