@@ -7,7 +7,6 @@
         <div class="container">
             <form action="{{ route('forum.thread.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input id="mentionInput" type="hidden" name="mentions">
                 <div class="create">
                     <div class="create__head">
                         <div class="create__title"><img src="{{ asset('bootstrap-forum/fonts/icons/main/New_Topic.svg') }}" alt="New topic">Create New Thread
@@ -71,37 +70,3 @@
         </div>
     </main>
 @endsection
-
-@push('script')
-    <script>
-        $('.comments-editor').each(function () {
-            var placeholder = $(this).data('placeholder')
-            var userLists = {!! json_encode($users->toArray()) !!}
-            var mentionData = []
-
-            $(this).summernote({
-                height: 200,
-                placeholder: placeholder,
-                tabsize: 2,
-                lang: 'en-EN',
-                hint: {
-                    mentions: userLists,
-                    match: /\B@(\w*)$/,
-                    search: function (keyword, callback) {
-                        callback($.grep(this.mentions, function (item) {
-                            return item.first_name.toLowerCase().indexOf(keyword.toLowerCase()) === 0;
-                        }));
-                    },
-                    template: function (item) {
-                        return `<img src="${item.avatar}" width="20" /> ${item.first_name}`;
-                    },
-                    content: function (item) {
-                        mentionData.push(item.id);
-                        $('#mentionInput').val(JSON.stringify(mentionData));
-                        return $(`<span class="fw-bold">@${item.first_name}&nbsp;</span>`)[0];
-                    }
-                }
-            })
-        })
-    </script>
-@endpush

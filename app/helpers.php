@@ -65,6 +65,5 @@ function getAspectRatio($width, $height): array
 
 function summernotePlacement($content): string
 {
-
-    return str_replace('&nbsp;', ' ', strip_tags($content));
+    return html_entity_decode(str_replace('&nbsp;', ' ', $content));
 }

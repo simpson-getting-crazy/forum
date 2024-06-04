@@ -55,6 +55,7 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script type="module" src="{{ asset('plugin/summernote/summernote-at-mention/src/summernote-at-mention.js') }}"></script>
     <script type="module" src="{{ asset('plugin/summernote/summernote-at-mention/src/selection-preserver.js') }}"></script>
+    <script src="{{ asset('plugin/summernote/summernote-highlight/dist/summernote-ext-highlight.min.js') }}"></script>
     <script>
         $('.summernotes').each(function() {
             var placeholder = $(this).data('placeholder')
@@ -65,9 +66,68 @@
                 lang: 'en-EN'
             })
         });
+
+        function applySummernoteReplyBox() {
+            $('.comments-editor').each(function() {
+                var placeholder = $(this).data('placeholder')
+                var userLists = {!! json_encode($users->toArray()) !!}
+                var mentionData = []
+
+                $(this).summernote({
+                    height: 200,
+                    placeholder: placeholder,
+                    tabsize: 2,
+                    lang: 'en-EN',
+                    prettifyHtml: false,
+                    toolbar: [
+                        ['font', ['bold', 'underline', 'clear']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['view', ['fullscreen', 'codeview', 'help']],
+                        ['highlight', ['highlight']],
+                    ],
+                    codemirror: {
+                        mode: 'htmlmixed',
+                        lineNumbers: 'true',
+                        theme: 'monokai',
+                    },
+                    hint: {
+                        mentions: userLists,
+                        match: /\B@(\w*)$/,
+                        search: function(keyword, callback) {
+                            callback($.grep(this.mentions, function(item) {
+                                return item.first_name.toLowerCase().indexOf(keyword
+                                    .toLowerCase()) === 0;
+                            }));
+                        },
+                        template: function(item) {
+                            return `<img src="${item.avatar}" width="20" /> ${item.first_name}`;
+                        },
+                        content: function(item) {
+                            mentionData.push(item.id);
+                            $('#mentionInput').val(JSON.stringify(mentionData));
+                            return $(`<span class="fw-bold">@${item.first_name}&nbsp;</span>`)[0];
+                        }
+                    }
+                })
+            })
+        }
     </script>
 
     @stack('script')
+
+    <script>
+        $(document).ready(function () {
+            $('pre').each(function () {
+                $(this).css({
+                    "color": "#f7a124",
+                    "background-color": "rgb(245 245 245)",
+                    "padding": "15px",
+                    "border-radius": "5px",
+                    "width": "100%"
+                })
+            })
+        })
+    </script>
 
 
 </body>

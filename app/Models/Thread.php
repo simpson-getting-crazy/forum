@@ -44,6 +44,13 @@ class Thread extends Model
             ->whereNull('other_thread_replies');
     }
 
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Thread::class, 'parent_id', 'id')
+            ->whereNotNull('parent_id')
+            ->whereNull('other_thread_replies');
+    }
+
     public function otherThreadReplies(): HasMany
     {
         return $this->hasMany(Thread::class, 'other_thread_replies', 'id')

@@ -104,8 +104,6 @@ return new class extends Migration
                 ->on('threads')
                 ->onDelete('cascade');
 
-            $table->enum('type', ['up', 'down']);
-
             $table->timestamps();
         });
     }
