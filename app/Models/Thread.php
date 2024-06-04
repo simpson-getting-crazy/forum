@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\Auth;
 
 class Thread extends Model
 {
@@ -79,5 +81,19 @@ class Thread extends Model
     public function votedThreads(): HasMany
     {
         return $this->hasMany(VotedThread::class);
+    }
+
+    public function bookmarkedThread(): HasOne
+    {
+        return $this->hasOne(BookmarkedThread::class, 'thread_id', 'id');
+    }
+
+    public function checkIfBookmarked(): bool
+    {
+        if ($this->bookmarkedThread()->count() > 0 && Auth::check()) {
+            return $this->bookmarkedThread->user_id == Auth::id();
+        }
+
+        return false;
     }
 }

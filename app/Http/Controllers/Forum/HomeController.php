@@ -110,4 +110,18 @@ class HomeController extends Controller
             ->back()
             ->with('success', 'Comment Successfully Created');
     }
+
+    public function submitBookmark(Request $request, string $slug, string $threadId): RedirectResponse
+    {
+        $thread = Thread::where('id', $threadId)->first();
+
+        $thread->bookmarkedThread()->create([
+            'user_id' => Auth::id(),
+        ]);
+
+        return redirect()
+            ->back()
+            ->with('success', 'Thread Was Bookmarked');
+    }
+
 }

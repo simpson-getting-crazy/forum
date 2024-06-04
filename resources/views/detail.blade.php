@@ -87,7 +87,11 @@
                                 <div class="topic__footer-share">
                                     <a href="#"><i class="fa fa-exclamation-circle" style="font-size: 2.5rem"></i></a>
                                     <div>
-                                        <a href="#"><i class="icon-Bookmark"></i></a>
+                                        @if (!$repliesThread->checkIfBookmarked())
+                                            <a href="{{ route('forum.submit.bookmark', [$thread->slug, $repliesThread->id]) }}"><i class="icon-Bookmark"></i></a>
+                                        @else
+                                            <i class="icon-Already_Bookmarked"></i>
+                                        @endif
                                     </div>
                                     <a href="#" class="replyBtn" data-parent-id="{{ $repliesThread->id }}"><i class="icon-Reply_Fill"></i></a>
                                 </div>
