@@ -43,12 +43,12 @@
                                 {!! summernotePlacement($thread->description) !!}
                             </div>
                         </div>
-                        <div class="topic__footer">
+                        {{-- <div class="topic__footer">
                             <div class="topic__footer-likes"></div>
                             <div class="topic__footer-share">
                                 <a href="#"><i class="fa fa-exclamation-circle" style="font-size: 2.5rem"></i></a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -85,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="topic__footer-share">
-                                    <a href="#"><i class="fa fa-exclamation-circle" style="font-size: 2.5rem"></i></a>
+                                    {{-- <a href="#"><i class="fa fa-exclamation-circle" style="font-size: 2.5rem"></i></a> --}}
                                     <div>
                                         @if (!$repliesThread->checkIfBookmarked())
                                             <a href="{{ route('forum.submit.bookmark', [$thread->slug, $repliesThread->id]) }}"><i class="icon-Bookmark"></i></a>
