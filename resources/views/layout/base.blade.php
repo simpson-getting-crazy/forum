@@ -1,4 +1,4 @@
-@props(['navigation' => true])
+@props(['navigation' => true, 'commentsForm' => false])
 
 <!doctype html>
 <html lang="en-US">
@@ -67,50 +67,52 @@
             })
         });
 
-        function applySummernoteReplyBox() {
-            $('.comments-editor').each(function() {
-                var placeholder = $(this).data('placeholder')
-                var userLists = {!! json_encode($users->toArray()) !!}
-                var mentionData = []
+        @if ($commentsForm)
+            function applySummernoteReplyBox() {
+                $('.comments-editor').each(function() {
+                    var placeholder = $(this).data('placeholder')
+                    var userLists = {!! json_encode($users->toArray()) !!}
+                    var mentionData = []
 
-                $(this).summernote({
-                    height: 200,
-                    placeholder: placeholder,
-                    tabsize: 2,
-                    lang: 'en-EN',
-                    prettifyHtml: false,
-                    toolbar: [
-                        ['font', ['bold', 'underline', 'clear']],
-                        ['para', ['ul', 'ol', 'paragraph']],
-                        ['view', ['fullscreen', 'codeview', 'help']],
-                        ['highlight', ['highlight']],
-                    ],
-                    codemirror: {
-                        mode: 'htmlmixed',
-                        lineNumbers: 'true',
-                        theme: 'monokai',
-                    },
-                    hint: {
-                        mentions: userLists,
-                        match: /\B@(\w*)$/,
-                        search: function(keyword, callback) {
-                            callback($.grep(this.mentions, function(item) {
-                                return item.first_name.toLowerCase().indexOf(keyword
-                                    .toLowerCase()) === 0;
-                            }));
+                    $(this).summernote({
+                        height: 200,
+                        placeholder: placeholder,
+                        tabsize: 2,
+                        lang: 'en-EN',
+                        prettifyHtml: false,
+                        toolbar: [
+                            ['font', ['bold', 'underline', 'clear']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['view', ['fullscreen', 'codeview', 'help']],
+                            ['highlight', ['highlight']],
+                        ],
+                        codemirror: {
+                            mode: 'htmlmixed',
+                            lineNumbers: 'true',
+                            theme: 'monokai',
                         },
-                        template: function(item) {
-                            return `<img src="${item.avatar}" width="20" /> ${item.first_name}`;
-                        },
-                        content: function(item) {
-                            mentionData.push(item.id);
-                            $('#mentionInput').val(JSON.stringify(mentionData));
-                            return $(`<span class="fw-bold">@${item.first_name}&nbsp;</span>`)[0];
+                        hint: {
+                            mentions: userLists,
+                            match: /\B@(\w*)$/,
+                            search: function(keyword, callback) {
+                                callback($.grep(this.mentions, function(item) {
+                                    return item.first_name.toLowerCase().indexOf(keyword
+                                        .toLowerCase()) === 0;
+                                }));
+                            },
+                            template: function(item) {
+                                return `<img src="${item.avatar}" width="20" /> ${item.first_name}`;
+                            },
+                            content: function(item) {
+                                mentionData.push(item.id);
+                                $('#mentionInput').val(JSON.stringify(mentionData));
+                                return $(`<span class="fw-bold">@${item.first_name}&nbsp;</span>`)[0];
+                            }
                         }
-                    }
+                    })
                 })
-            })
-        }
+            }
+        @endif
     </script>
 
     @stack('script')

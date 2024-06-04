@@ -1,4 +1,4 @@
-@extends('layout.base')
+@extends('layout.base', ['commentsForm' => true])
 
 @section('title', Str::title($thread->title))
 
