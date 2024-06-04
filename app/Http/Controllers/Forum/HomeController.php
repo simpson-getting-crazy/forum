@@ -47,6 +47,8 @@ class HomeController extends Controller
         $users = User::where('is_admin', false)->orderBy('first_name', 'asc')->get();
         $thread = Thread::query()->where('slug', $slug)->first();
 
+        $thread->update(['views' => $thread->views + 1]);
+
         return view('detail', compact('categories', 'users', 'thread'));
     }
 
