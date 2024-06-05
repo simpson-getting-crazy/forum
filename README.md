@@ -16,3 +16,8 @@ This is a forum programmed by myself. This forum is intended for people who want
 - Setup `.env` files
 - Generate app key `php artisan key:generate`
 - Run the migration and seeder `php artisan migrate --seed`
+
+## Feedback
+- Just create an issue or pull requests
+- Or you can send me an email here `daycodestudioproject@gmail.com`
+
