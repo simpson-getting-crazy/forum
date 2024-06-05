@@ -35,35 +35,35 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Category Information')
-                ->schema([
-                    Forms\Components\TextInput::make('name')
-                        ->required()
-                        ->maxLength(255)
-                        ->unique(table: Category::class, column: 'name', ignoreRecord: true)
-                        ->label('Category Name')
-                        ->placeholder('Category Name')
-                        ->live(onBlur: true)
-                        ->afterStateUpdated(function (Set $set, $state) {
-                            $set('slug', Str::slug($state));
-                        }),
-                    Forms\Components\TextInput::make('slug')
-                        ->required()
-                        ->unique(table: Category::class, column: 'name', ignoreRecord: true)
-                        ->rules([
-                            fn (Get $get): \Closure => function (string $attribute, $value, \Closure $fail) use ($get) {
-                                if (Str::slug($get('name')) != $value) {
-                                    $fail("The {$attribute} is invalid.");
-                                }
-                            },
-                        ])
-                        ->label('Category Slug')
-                        ->placeholder('Category Slug'),
-                    Forms\Components\ColorPicker::make('color')
-                        ->required()
-                        ->label('Category Color')
-                        ->placeholder('Category Color'),
-                ])
-                ->columns(3)
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255)
+                            ->unique(table: Category::class, column: 'name', ignoreRecord: true)
+                            ->label('Category Name')
+                            ->placeholder('Category Name')
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (Set $set, $state) {
+                                $set('slug', Str::slug($state));
+                            }),
+                        Forms\Components\TextInput::make('slug')
+                            ->required()
+                            ->unique(table: Category::class, column: 'name', ignoreRecord: true)
+                            ->rules([
+                                fn (Get $get): \Closure => function (string $attribute, $value, \Closure $fail) use ($get) {
+                                    if (Str::slug($get('name')) != $value) {
+                                        $fail("The {$attribute} is invalid.");
+                                    }
+                                },
+                            ])
+                            ->label('Category Slug')
+                            ->placeholder('Category Slug'),
+                        Forms\Components\ColorPicker::make('color')
+                            ->required()
+                            ->label('Category Color')
+                            ->placeholder('Category Color'),
+                    ])
+                    ->columns(3)
             ]);
     }
 
@@ -72,8 +72,10 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Category Name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
+                    ->label('Category Slug')
                     ->searchable(),
                 Tables\Columns\ColorColumn::make('color')
                     ->copyable()
