@@ -65,8 +65,8 @@ class User extends Authenticatable implements FilamentUser, HasName
     public function getRelatedUserThreads(bool $withPagination = false): Collection|LengthAwarePaginator
     {
         return !$withPagination
-            ? $this->threads()->whereNull('parent_id')->get()
-            : $this->threads()->whereNull('parent_id')->paginate(5);
+            ? $this->threads()->whereNull('parent_id')->whereNull('other_thread_replies')->get()
+            : $this->threads()->whereNull('parent_id')->whereNull('other_thread_replies')->paginate(5);
     }
 
     public function getRelatedUserPosts(): Collection
