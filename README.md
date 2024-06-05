@@ -7,5 +7,5 @@ This is a forum programmed by myself. This forum is intended for people who want
 - Filament 3
 
 ## Changelog
-- Demo Version
-    - [v1 Features Log](https://github.com/simpson-getting-crazy/forum/blob/master/changelog/demo/v1.md)
+- Minimum Viable Product Version
+    - [V1.0 Features Log](https://github.com/simpson-getting-crazy/forum/blob/master/changelog/mvp/v1.md)
