@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BulkActions;
+namespace App\Actions;
 
 use Illuminate\Database\Eloquent\Model;
 

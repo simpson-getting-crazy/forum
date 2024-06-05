@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Forum\Thread;
 
-use App\BulkActions\ProcessEditorFileUpload;
+use App\Actions\ProcessEditorFileUpload;
 use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;

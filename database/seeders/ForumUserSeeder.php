@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\BulkActions\GenerateAvatar;
+use App\Actions\GenerateAvatar;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Forum\Dashboard;
 
-use App\BulkActions\UploadImage;
+use App\Actions\UploadImage;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Contracts\View\View;

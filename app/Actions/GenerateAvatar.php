@@ -1,6 +1,6 @@
 <?php
 
-namespace App\BulkActions;
+namespace App\Actions;
 
 use Laravolt\Avatar\Avatar;
 

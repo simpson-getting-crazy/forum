@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\BulkActions\GenerateAvatar;
+use App\Actions\GenerateAvatar;
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;

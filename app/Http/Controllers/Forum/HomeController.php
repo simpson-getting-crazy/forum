@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Forum;
 
-use App\BulkActions\MentionProcess;
+use App\Actions\MentionProcess;
 use App\Models\User;
 use App\Models\Thread;
 use App\Models\Category;
