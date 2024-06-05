@@ -15,6 +15,7 @@ Route::group(['as' => 'forum.'], function () {
     Route::post('/show/{slug}/reply', [HomeController::class, 'submitReplyThread'])->name('submit.reply');
     Route::post('/show/{slug}/comment', [HomeController::class, 'submitReplyComment'])->name('submit.comment');
     Route::get('/show/{slug}/{threadId}/bookmark', [HomeController::class, 'submitBookmark'])->name('submit.bookmark');
+    Route::get('/show/{slug}/{threadId}/votes', [HomeController::class, 'submitVotes'])->name('submit.votes');
 
     Route::group(['prefix' => 'my-thread', 'as' => 'my_thread.'], function () {
         Route::get('/', [MyThreadController::class, 'index'])->name('index');

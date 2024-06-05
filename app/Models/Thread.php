@@ -78,9 +78,9 @@ class Thread extends Model
         return $this->hasMany(Mention::class);
     }
 
-    public function votedThreads(): HasMany
+    public function votedThread(): HasOne
     {
-        return $this->hasMany(VotedThread::class);
+        return $this->hasOne(VotedThread::class);
     }
 
     public function bookmarkedThread(): HasOne
@@ -92,6 +92,19 @@ class Thread extends Model
     {
         if ($this->bookmarkedThread()->count() > 0 && Auth::check()) {
             return $this->bookmarkedThread->user_id == Auth::id();
+        }
+
+        return false;
+    }
+
+    public function checkIfVoted(string $type = null): bool
+    {
+        if ($this->votedThread()->count() > 0 && Auth::check()) {
+            if (!is_null($type)) {
+                return $this->votedThread->user_id == Auth::id() && $this->votedThread->type == $type;
+            }
+
+            return $this->votedThread->user_id == Auth::id();
         }
 
         return false;

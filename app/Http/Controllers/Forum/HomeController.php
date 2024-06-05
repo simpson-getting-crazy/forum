@@ -17,6 +17,7 @@ use App\Http\Filters\Thread\FilterByMostActive;
 use App\Http\Filters\Thread\FilterByMostViewed;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -54,61 +55,86 @@ class HomeController extends Controller
 
     public function submitReplyThread(Request $request, string $slug): RedirectResponse
     {
-        $validateRequest = $request->validate([
-            'description' => ['required', 'string']
-        ]);
+        DB::beginTransaction();
+        try {
 
-        $thread = Thread::where('slug', $slug)->first();
+            $validateRequest = $request->validate([
+                'description' => ['required', 'string']
+            ]);
 
-        $createdThread = Thread::create([
-            'user_id' => Auth::id(),
-            'category_id' => $thread->category->id,
-            'parent_id' => $thread->id,
-            'other_replies_thread' => null,
-            'title' => null,
-            'slug' => null,
-            'description' => $validateRequest['description'],
-            'visibility' => 'all',
-            'last_activity' => now(),
-        ]);
+            $thread = Thread::where('slug', $slug)->lockForUpdate()->first();
 
-        if (isset($request->mentions)) {
-            MentionProcess::execute($request->mentions, $createdThread);
+            $createdThread = Thread::create([
+                'user_id' => Auth::id(),
+                'category_id' => $thread->category->id,
+                'parent_id' => $thread->id,
+                'other_replies_thread' => null,
+                'title' => null,
+                'slug' => null,
+                'description' => $validateRequest['description'],
+                'visibility' => 'all',
+                'last_activity' => now(),
+            ]);
+
+            if (isset($request->mentions)) {
+                MentionProcess::execute($request->mentions, $createdThread);
+            }
+
+            $thread->update([
+                'replies' => $thread->replies + 1,
+            ]);
+
+            DB::commit();
+
+            return redirect()
+                ->back()
+                ->with('success', 'Thread Successfully Created');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            dd($ex);
         }
-
-        return redirect()
-            ->back()
-            ->with('success', 'Thread Successfully Created');
     }
 
     public function submitReplyComment(Request $request, string $slug): RedirectResponse
     {
-        $validateRequest = $request->validate([
-            'other_thread_replies' => ['required', 'string', 'exists:users,id'],
-            'description' => ['required', 'string']
-        ]);
+        DB::beginTransaction();
+        try {
+            $validateRequest = $request->validate([
+                'other_thread_replies' => ['required', 'string', 'exists:users,id'],
+                'description' => ['required', 'string']
+            ]);
 
-        $thread = Thread::where('slug', $slug)->first();
+            $thread = Thread::where('slug', $slug)->lockForUpdate()->first();
 
-        $createdThread = Thread::create([
-            'user_id' => Auth::id(),
-            'category_id' => $thread->category->id,
-            'parent_id' => null,
-            'other_thread_replies' => $validateRequest['other_thread_replies'],
-            'title' => null,
-            'slug' => null,
-            'description' => $validateRequest['description'],
-            'visibility' => 'all',
-            'last_activity' => now(),
-        ]);
+            $createdThread = Thread::create([
+                'user_id' => Auth::id(),
+                'category_id' => $thread->category->id,
+                'parent_id' => null,
+                'other_thread_replies' => $validateRequest['other_thread_replies'],
+                'title' => null,
+                'slug' => null,
+                'description' => $validateRequest['description'],
+                'visibility' => 'all',
+                'last_activity' => now(),
+            ]);
 
-        if (isset($request->mentions)) {
-            MentionProcess::execute($request->mentions, $createdThread);
+            if (isset($request->mentions)) {
+                MentionProcess::execute($request->mentions, $createdThread);
+            }
+
+            $thread->update([
+                'replies' => $thread->replies + 1,
+            ]);
+
+            DB::commit();
+
+            return redirect()
+                ->back()
+                ->with('success', 'Comment Successfully Created');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            dd($ex);
         }
-
-        return redirect()
-            ->back()
-            ->with('success', 'Comment Successfully Created');
     }
 
     public function submitBookmark(Request $request, string $slug, string $threadId): RedirectResponse
@@ -122,6 +148,54 @@ class HomeController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Thread Was Bookmarked');
+    }
+
+    public function submitVotes(Request $request, string $slug, string $threadId): RedirectResponse
+    {
+        DB::beginTransaction();
+        try {
+            $thread = Thread::where('slug', $slug)->lockForUpdate()->first();
+            $replyThread = Thread::where('id', $threadId)->lockForUpdate()->first();
+
+            if (!$replyThread->checkIfVoted()) {
+                $replyThread->votedThread()->create([
+                    'user_id' => Auth::id(),
+                    'type' => $request->type,
+                ]);
+
+                $replyThread->update([
+                    'upvote' => $request->type == 'up'
+                        ? $replyThread->upvote + 1
+                        : $replyThread->upvote,
+                    'downvote' => $request->type == 'down'
+                        ? $replyThread->downvote + 1
+                        : $replyThread->downvote,
+                ]);
+
+                $thread->update([
+                    'upvote' => $request->type == 'up'
+                        ? $thread->upvote + 1
+                        : $thread->upvote,
+                    'downvote' => $request->type == 'down'
+                        ? $thread->downvote + 1
+                        : $thread->downvote,
+                ]);
+
+                DB::commit();
+
+                return redirect()
+                    ->back()
+                    ->with('success', 'Thread Was Voted');
+            }
+
+            return redirect()
+                ->back()
+                ->with('error', 'You`ve been already voted!');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+
+            dd($ex);
+        }
     }
 
 }

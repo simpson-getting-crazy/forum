@@ -76,11 +76,27 @@
                             <div class="topic__footer">
                                 <div class="topic__footer-likes">
                                     <div>
-                                        <a href="#"><i class="icon-Upvote"></i></a>
+                                        @if (!$repliesThread->checkIfVoted('up'))
+                                            <a href="{{ route('forum.submit.votes', ['slug' => $thread->slug, 'threadId' => $repliesThread->id, 'type' => 'up']) }}">
+                                                <i class="fa fa-arrow-circle-o-up" style="font-size: 2.5rem"></i>
+                                            </a>
+                                        @else
+                                            <a href="#">
+                                                <i class="fa fa-arrow-circle-up" style="font-size: 2.5rem"></i>
+                                            </a>
+                                        @endif
                                         <span>{{ $repliesThread->upvote }}</span>
                                     </div>
                                     <div>
-                                        <a href="#"><i class="icon-Downvote"></i></a>
+                                        @if (!$repliesThread->checkIfVoted('down'))
+                                            <a href="{{ route('forum.submit.votes', ['slug' => $thread->slug, 'threadId' => $repliesThread->id, 'type' => 'down']) }}">
+                                                <i class="fa fa-arrow-circle-o-down" style="font-size: 2.5rem"></i>
+                                            </a>
+                                        @else
+                                            <a href="#">
+                                                <i class="fa fa-arrow-circle-down" style="font-size: 2.5rem"></i>
+                                            </a>
+                                        @endif
                                         <span>{{ $repliesThread->downvote }}</span>
                                     </div>
                                 </div>
