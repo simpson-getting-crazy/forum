@@ -131,6 +131,11 @@ class ThreadResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                return $query
+                    ->where('parent_id', null)
+                    ->where('other_thread_replies', null);
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('user.first_name')
                     ->label('User Name')
@@ -183,11 +188,6 @@ class ThreadResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->modifyQueryUsing(function (Builder $query) {
-                return $query
-                    ->where('parent_id', null)
-                    ->where('other_thread_replies', null);
-            })
             ->defaultSort('created_at', 'desc')
             ->filters([
                 //
