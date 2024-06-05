@@ -145,12 +145,14 @@
                 <div class="calendar">
                     <div class="calendar__center">
                         <div class="calendar__first">{{ \Carbon\Carbon::parse($thread->created_at)->format('M, d') }}</div>
-                        <div class="calendar__range">
-                            <div class="calendar__current">
-                                <span>{{ \Carbon\Carbon::parse($thread->parents[$thread->parents()->count() - 1]->created_at)->format('M, d') }}</span>
+                        @if ($thread->parents()->count() > 0)
+                            <div class="calendar__range">
+                                <div class="calendar__current">
+                                    <span>{{ \Carbon\Carbon::parse($thread->parents[$thread->parents()->count() - 1]->created_at)->format('M, d') }}</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="calendar__last">{{ compactDiffForHumans($thread->parents[$thread->parents()->count() - 1]->created_at) }}</div>
+                            <div class="calendar__last">{{ compactDiffForHumans($thread->parents[$thread->parents()->count() - 1]->created_at) }}</div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -223,56 +225,58 @@
             applySummernoteReplyBox()
         </script>
 
-        <script>
-            $(document).ready(function () {
-                $('.replyBtn').each(function () {
-                    $(this).click(function (e) {
-                        e.preventDefault()
+        @if (Auth::check())
+            <script>
+                $(document).ready(function () {
+                    $('.replyBtn').each(function () {
+                        $(this).click(function (e) {
+                            e.preventDefault()
 
-                        let parentId = $(this).data('parent-id')
-                        let selectedReplyBox = $(`div[data-reply-thread="${parentId}"]`)
+                            let parentId = $(this).data('parent-id')
+                            let selectedReplyBox = $(`div[data-reply-thread="${parentId}"]`)
 
-                        let html = `
-                            <div class="topic topic--comment replyBoxes">
-                                <div class="topic__head">
-                                    <div class="topic__avatar">
-                                        <a href="#" class="avatar"><img class="rounded-circle" src="{{ auth()->user()->avatar }}"
-                                                alt="avatar"></a>
-                                    </div>
-                                    <div class="topic__caption">
-                                        <div class="topic__name">
-                                            <a href="#">{{ auth()->user()->getFilamentName() }}</a>
+                            let html = `
+                                <div class="topic topic--comment replyBoxes">
+                                    <div class="topic__head">
+                                        <div class="topic__avatar">
+                                            <a href="#" class="avatar"><img class="rounded-circle" src="{{ auth()->user()->avatar }}"
+                                                    alt="avatar"></a>
+                                        </div>
+                                        <div class="topic__caption">
+                                            <div class="topic__name">
+                                                <a href="#">{{ auth()->user()->getFilamentName() }}</a>
+                                            </div>
                                         </div>
                                     </div>
+                                    <form action="{{ route('forum.submit.comment', $thread->slug) }}" method="POST">
+                                        @csrf
+                                        <input id="mentionInput" type="hidden" name="mentions">
+                                        <input type="hidden" name="other_thread_replies" value="${parentId}">
+                                        <div class="topic__content">
+                                            <div class="topic__text">
+                                                <div class="create__section create__textarea">
+                                                    <textarea rows="5" class="form-control comments-editor" data-placeholder="My Answer" name="description">{{ old('description') }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="topic__footer">
+                                                <div class="topic__footer-likes"></div>
+                                                <div class="topic__footer-share">
+                                                    <button type="submit" class="create__btn-create btn btn--type-02">
+                                                        Submit Answer
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <form action="{{ route('forum.submit.comment', $thread->slug) }}" method="POST">
-                                    @csrf
-                                    <input id="mentionInput" type="hidden" name="mentions">
-                                    <input type="hidden" name="other_thread_replies" value="${parentId}">
-                                    <div class="topic__content">
-                                        <div class="topic__text">
-                                            <div class="create__section create__textarea">
-                                                <textarea rows="5" class="form-control comments-editor" data-placeholder="My Answer" name="description">{{ old('description') }}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="topic__footer">
-                                            <div class="topic__footer-likes"></div>
-                                            <div class="topic__footer-share">
-                                                <button type="submit" class="create__btn-create btn btn--type-02">
-                                                    Submit Answer
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        `
-                        $('.replyBoxes').remove()
+                            `
+                            $('.replyBoxes').remove()
 
-                        selectedReplyBox.append(html)
-                        applySummernoteReplyBox()
+                            selectedReplyBox.append(html)
+                            applySummernoteReplyBox()
+                        })
                     })
                 })
-            })
-        </script>
+            </script>
+        @endif
     @endpush
