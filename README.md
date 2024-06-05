@@ -9,3 +9,10 @@ This is a forum programmed by myself. This forum is intended for people who want
 ## Changelog
 - Minimum Viable Product Version
     - [V1.0 Features Log](https://github.com/simpson-getting-crazy/forum/blob/master/changelog/mvp/v1.md)
+
+## Setup
+- Clone The Project
+- Install Dependencies `composer install`
+- Setup `.env` files
+- Generate app key `php artisan key:generate`
+- Run the migration and seeder `php artisan migrate --seed`
