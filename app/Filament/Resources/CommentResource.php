@@ -39,7 +39,9 @@ class CommentResource extends Resource
                     return $query->where('other_thread_replies', request('replyId'));
                 }
 
-                return $query;
+                return $query
+                    ->where('parent_id', null)
+                    ->where('other_thread_replies', '!=', null);
             })
             ->columns([
                 Tables\Columns\TextColumn::make('user.first_name')
