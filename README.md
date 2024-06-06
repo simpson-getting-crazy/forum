@@ -9,6 +9,7 @@ This is a forum programmed by myself. This forum is intended for people who want
 ## Changelog
 - Minimum Viable Product Version
     - [V1.0 Features Log](https://github.com/simpson-getting-crazy/forum/blob/master/changelog/mvp/v1.md)
+    - [V1.1 Features Log](https://github.com/simpson-getting-crazy/forum/blob/master/changelog/mvp/v1-1.md)
 
 ## Setup
 - Clone The Project
