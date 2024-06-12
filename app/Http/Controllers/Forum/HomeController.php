@@ -45,8 +45,19 @@ class HomeController extends Controller
     public function detail(string $slug): View
     {
         $categories = Category::orderBy('name', 'asc')->get();
-        $users = User::where('is_admin', false)->orderBy('first_name', 'asc')->get();
         $thread = Thread::query()->where('slug', $slug)->first();
+        $userMentions = function ($thread) {
+            $parentUser = $thread->parents->map(fn ($item) => $item->user);
+
+            return $thread
+                ->parents
+                ->map(fn ($item) => $item->otherThreadReplies->map(fn ($item) => $item->user))
+                ->flatten(1)
+                ->merge($parentUser)
+                ->unique();
+        };
+
+        $users = $userMentions($thread)->values();
 
         $thread->update(['views' => $thread->views + 1]);
 
